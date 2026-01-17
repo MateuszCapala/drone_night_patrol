@@ -1,0 +1,69 @@
+# ROS 2 build system
+build/
+install/
+log/
+.colcon/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+.eggs/
+*.log
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# Environment and local configs
+.env
+.venv/
+venv/
+*.env
+*.yaml.save
+*.launch.py.save
+
+# Temporary and backup files
+*.tmp
+*.old
+*.orig
+*~
+*.DS_Store
+
+# Gazebo / Ignition generated files
+*.state
+*.world~
+*.sdf~
+gazebo_models/
+ignition_models/
+.cache/
+tmp/
+
+# Simulation recordings and results
+*.bag
+*.bag.active
+*.csv
+*.dat
+*.out
+*.log
+recordings/
+results/
+screenshots/
+
+# Jupyter / notebooks (if used)
+.ipynb_checkpoints/
+
+# System files
+Thumbs.db
+Desktop.ini
+
+# Training files
+yolo_thermal/
+runs/
+src/drone_sim/resource/

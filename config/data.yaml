@@ -1,0 +1,5 @@
+train: /home/mateusz/Desktop/sem2_magisterka/drony/drone_night_patrol/src/drone_sim/resource/infrared.v1-test.yolov8/train
+val: /home/mateusz/Desktop/sem2_magisterka/drony/drone_night_patrol/src/drone_sim/resource/infrared.v1-test.yolov8/valid
+
+nc: 1  
+names: ['person']
