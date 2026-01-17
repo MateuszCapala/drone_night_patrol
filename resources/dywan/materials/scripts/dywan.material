@@ -1,0 +1,18 @@
+material Dywan/Image
+{
+  technique
+  {
+    pass
+    {
+      ambient 0.8 0.8 0.8 1.0
+      diffuse 1.0 1.0 1.0 1.0
+      specular 0.0 0.0 0.0 1.0 0.5
+
+      texture_unit
+      {
+        texture ../textures/new_carpet.jpg
+        filtering trilinear
+      }
+    }
+  }
+}

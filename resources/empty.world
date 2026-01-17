@@ -1,0 +1,220 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="test_city_dark_buildings">
+    <plugin name="static_world_plugin" filename="libstatic_world_plugin.so" />
+    
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://dywan</uri>
+      <pose>0 0 0.01 0 0 0</pose>
+    </include>
+
+    <include>
+      <uri>model://intruz</uri>
+      <pose>-10.91 80.44 0.03 0 0 0</pose>
+    </include>
+
+    <!-- Bushes at the same location as the intruder -->
+    <include>
+      <uri>model://bush_0</uri>
+      <name>bush_instance_1</name>
+      <pose>-10.91 80.44 0.03 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://bush_1</uri>
+      <name>bush_instance_2</name>
+      <pose>-10.91 80.44 0.03 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://bush_0</uri>
+      <name>bush_instance_3</name>
+      <pose>-10.91 80.44 0.03 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://bush_1</uri>
+      <name>bush_instance_4</name>
+      <pose>-10.91 80.44 0.03 0 0 0</pose>
+    </include>
+
+    <!-- Existing Buildings with darker colors -->
+    <model name="building_1">
+      <static>true</static>
+      <pose>10 20 0 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>10 5 6</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>10 5 6</size></box></geometry><material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_2">
+      <static>true</static>
+      <pose>10 -20 0 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>10 5 7</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>10 5 7</size></box></geometry><material><ambient>0.12 0.12 0.12 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_3">
+      <static>true</static>
+      <pose>30 15 0 0 0 0.2</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>8 8 5</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>8 8 5</size></box></geometry><material><ambient>0.14 0.14 0.14 1</ambient><diffuse>0.14 0.14 0.14 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_4">
+      <static>true</static>
+      <pose>30 -15 0 0 0 -0.2</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>8 8 6.5</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>8 8 6.5</size></box></geometry><material><ambient>0.16 0.16 0.16 1</ambient><diffuse>0.16 0.16 0.16 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_5">
+      <static>true</static>
+      <pose>-15 30 0 0 0 0.8</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>12 6 7</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>12 6 7</size></box></geometry><material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.18 0.18 0.18 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_6">
+      <static>true</static>
+      <pose>-15 -30 0 0 0 -0.8</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>12 6 5.5</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>12 6 5.5</size></box></geometry><material><ambient>0.11 0.11 0.11 1</ambient><diffuse>0.11 0.11 0.11 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_7">
+      <static>true</static>
+      <pose>50 0 0 0 0 1.57</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>20 5 7</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>20 5 7</size></box></geometry><material><ambient>0.13 0.13 0.13 1</ambient><diffuse>0.13 0.13 0.13 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_8">
+      <static>true</static>
+      <pose>-40 0 0 0 0 1.57</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>20 5 6</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>20 5 6</size></box></geometry><material><ambient>0.15 0.15 0.15 1</ambient><diffuse>0.15 0.15 0.15 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_9">
+      <static>true</static>
+      <pose>0 50 0 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>30 4 7</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>30 4 7</size></box></geometry><material><ambient>0.17 0.17 0.17 1</ambient><diffuse>0.17 0.17 0.17 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_10">
+      <static>true</static>
+      <pose>0 -50 0 0 0 0</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>30 4 5</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>30 4 5</size></box></geometry><material><ambient>0.19 0.19 0.19 1</ambient><diffuse>0.19 0.19 0.19 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_11">
+      <static>true</static>
+      <pose>25 45 0 0 0 0.5</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>7 7 6</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>7 7 6</size></box></geometry><material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_12">
+      <static>true</static>
+      <pose>-25 45 0 0 0 -0.5</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>7 7 7</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>7 7 7</size></box></geometry><material><ambient>0.12 0.12 0.12 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_13">
+      <static>true</static>
+      <pose>25 -45 0 0 0 -0.5</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>7 7 5</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>7 7 5</size></box></geometry><material><ambient>0.14 0.14 0.14 1</ambient><diffuse>0.14 0.14 0.14 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_14">
+      <static>true</static>
+      <pose>-25 -45 0 0 0 0.5</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>7 7 6.5</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>7 7 6.5</size></box></geometry><material><ambient>0.16 0.16 0.16 1</ambient><diffuse>0.16 0.16 0.16 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_15">
+      <static>true</static>
+      <pose>45 30 0 0 0 1</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>10 4 7</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>10 4 7</size></box></geometry><material><ambient>0.18 0.18 0.18 1</ambient><diffuse>0.18 0.18 0.18 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_16">
+      <static>true</static>
+      <pose>-45 30 0 0 0 -1</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>10 4 5.5</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>10 4 5.5</size></box></geometry><material><ambient>0.11 0.11 0.11 1</ambient><diffuse>0.11 0.11 0.11 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_17">
+      <static>true</static>
+      <pose>45 -30 0 0 0 -1</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>10 4 7</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>10 4 7</size></box></geometry><material><ambient>0.13 0.13 0.13 1</ambient><diffuse>0.13 0.13 0.13 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_18">
+      <static>true</static>
+      <pose>-45 -30 0 0 0 1</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>10 4 6</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>10 4 6</size></box></geometry><material><ambient>0.15 0.15 0.15 1</ambient><diffuse>0.15 0.15 0.15 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_19">
+      <static>true</static>
+      <pose>60 20 0 0 0 0.3</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>5 15 7</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>5 15 7</size></box></geometry><material><ambient>0.17 0.17 0.17 1</ambient><diffuse>0.17 0.17 0.17 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_20">
+      <static>true</static>
+      <pose>-60 20 0 0 0 -0.3</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>5 15 5</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>5 15 5</size></box></geometry><material><ambient>0.19 0.19 0.19 1</ambient><diffuse>0.19 0.19 0.19 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_21">
+      <static>true</static>
+      <pose>60 -20 0 0 0 -0.3</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>5 15 6</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>5 15 6</size></box></geometry><material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="building_22">
+      <static>true</static>
+      <pose>-60 -20 0 0 0 0.3</pose>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>5 15 7</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>5 15 7</size></box></geometry><material><ambient>0.12 0.12 0.12 1</ambient><diffuse>0.12 0.12 0.12 1</diffuse></material></visual>
+      </link>
+    </model>
+  </world>
+</sdf>

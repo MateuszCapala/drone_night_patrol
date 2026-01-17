@@ -1,9 +1,9 @@
 # Drone Night Patrol — Symulacja autonomicznego drona w ROS 2 i Ignition Gazebo
 
-**Projekt:** Symulacja i sterowanie autonomicznym dronem w środowisku nocnym
+**Projekt:** Symulacja i sterowanie dronem patrolującym granice w środowisku nocnym
 **Autor:** Mateusz
 **Data:** 2025
-**Technologie:** ROS 2 | Ignition Gazebo | Python | URDF/Xacro
+**Technologie:** ROS 2 | Gazebo Classic | Python | URDF/Xacro
 
 ---
 
@@ -11,9 +11,8 @@
 
 * Symulacja autonomicznego drona w środowisku nocnym.
 * Integracja z PX4 SITL.
-* Kamera frontowa na dronie (`iris_opt_flow`) z pluginem ROS.
-* Integracja kamery Realsense z pluginem ROS.
-* Obsługa dodatkowych modeli środowiska (`dywan`, `intruz`).
+* Obsługa dodatkowych modeli środowiska.
+* Wytrenowanie i testowanie symulacyjne modelu wykrywania człowieka w symulowanej kamerze termowizyjnej.
 
 ---
 
@@ -21,66 +20,45 @@
 
 ### 1. `empty.world`
 
-Zmiana modeli w środowisku:
+W pliku `empty.world` dokonano następujących zmian w modelach środowiska:
 
+- Usunięto domyślne modele `ground_plane` i `asphalt_plane`.
+- Dodano modele `sun`, `dywan`, `intruz` oraz `bush_0` i `bush_1`.
+- Dodano 22 modele budynków (`building_1` do `building_22`) o ciemnych teksturach, aby symulować warunki nocne.
+
+Przykładowe inkluzje modeli w `empty.world`:
 ```xml
+<include>
+  <uri>model://sun</uri>
+</include>
+
 <include>
   <uri>model://dywan</uri>
   <pose>0 0 0.01 0 0 0</pose>
 </include>
-```
 
-Zastąpiono oryginalne:
-
-```xml
 <include>
-  <uri>model://ground_plane</uri>
+  <uri>model://intruz</uri>
+  <pose>-10.91 80.44 0.03 0 0 0</pose>
 </include>
+
 <include>
-  <uri>model://asphalt_plane</uri>
+  <uri>model://bush_0</uri>
+  <name>bush_instance_1</name>
+  <pose>-10.91 80.44 0.03 0 0 0</pose>
 </include>
 ```
 
-### 2. `iris_opt_flow.sdf`
-
-Dodano kamerę frontową:
-
-```xml
-<link name="camera_link">
-  <pose>0.1 0 0.05 0 0 0</pose>
-  <sensor name="front_camera" type="camera">
-    <always_on>true</always_on>
-    <update_rate>30</update_rate>
-    <visualize>true</visualize>
-    ...
-    <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
-      <ros>
-        <namespace>/iris_opt_flow/front_camera</namespace>
-        <remapping>image:=image_raw</remapping>
-      </ros>
-      <update_rate>30.0</update_rate>
-      <camera_name>front_camera</camera_name>
-      <frame_name>camera_link</frame_name>
-    </plugin>
-  </sensor>
-</link>
-
-<joint name="camera_joint" type="fixed">
-  <parent>iris::base_link</parent>
-  <child>camera_link</child>
-</joint>
-```
-
-### 3. Foldery modeli PX4
+### 2. Foldery modeli PX4
 
 W katalogu `PX4-Autopilot/Tools/simulation/gazebo-classic/sitl_gazebo-classic/models/` dodano:
 
 * `dywan`
 * `intruz`
 
-Foldery umieszczone są w katalogu `resources` i będą dostępne w repozytorium GitHub.
+Foldery umieszczone są w katalogu `resources` i są dostępne w repozytorium GitHub.
 
-### 4. Kamera Realsense
+### 3. Kamera Realsense
 
 W pliku `realsense_camera/model.sdf` dodano plugin ROS:
 
@@ -94,6 +72,59 @@ W pliku `realsense_camera/model.sdf` dodano plugin ROS:
 </plugin>
 ```
 
+### 4. Definiowanie trasy patrolu
+
+Trasa patrolu drona jest zdefiniowana w pliku `src/drone_sim/resource/waypoints.json`. Plik ten zawiera współrzędne geograficzne (szerokość, długość) oraz wysokość dla punktu startowego (`origin`) i kolejnych punktów nawigacyjnych (`waypoints`).
+
+Struktura pliku `waypoints.json`:
+```json
+{
+  "origin": {
+    "latitude": 51.507912,
+    "longitude": 23.616133,
+    "altitude": 10.0
+  },
+  "waypoints": [
+    {
+      "latitude": 51.507912,
+      "longitude": 23.616133,
+      "altitude": 22.0
+    },
+    ...
+}
+```
+
+- **`origin`**: Punkt startowy drona.
+- **`waypoints`**: Lista punktów, które dron będzie kolejno odwiedzał w trakcie patrolu. Ostatni punkt powinien być taki sam jak pierwszy, aby dron wrócił na pozycję początkową.
+
+---
+
+## Modele i trening
+
+### Modele krzaków
+
+Modele krzaków (`bush_0` i `bush_1`) zostały zapożyczone z repozytorium [gazebo-vegetation](https://github.com/kubja/gazebo-vegetation.git). Ich parametry widoczności zostały zmodyfikowane na potrzeby projektu.
+
+### Trening modelu YOLO
+
+Model `yolov8n.pt` został wytrenowany na bazie danych *S&R POP infrared Dataset*.
+
+```
+@misc{
+    dataset,
+    title = { S&R POP infrared Dataset },
+    type = { Open Source Dataset },
+    author = { thermalvisionUAV },
+    howpublished = { \url{ https://universe.roboflow.com/thermalvisionuav/s-r-pop-infrared-qdzfc } },
+    url = { https://universe.roboflow.com/thermalvisionuav/s-r-pop-infrared-qdzfc },
+    journal = { Roboflow Universe },
+    publisher = { Roboflow },
+    year = { 2025 },
+    month = { oct },
+    note = { visited on 2026-01-17 },
+}
+```
+
 ---
 
 ## Instalacja ROS 2 i budowanie paczki
@@ -101,8 +132,8 @@ W pliku `realsense_camera/model.sdf` dodano plugin ROS:
 1. Sklonuj swoje repozytorium ROS:
 
 ```bash
-git clone <TWÓJ_REPO_ROS>.git
-cd <TWÓJ_REPO_ROS>
+git clone https://github.com/MateuszCapala/drone_night_patrol.git
+cd https://github.com/MateuszCapala/drone_night_patrol.git
 ```
 
 2. Zbuduj workspace ROS 2:
@@ -117,15 +148,7 @@ colcon build
 source install/setup.bash
 ```
 
-4. Uruchomienie symulacji:
 
-```bash
-ros2 launch drone_sim drone_sim_launch.launch.py
-ros2 run gazebo_ros spawn_entity.py \
-  -file <ścieżka>/intruz/moving_image.sdf \
-  -entity my_image
-ros2 run drone_sim offboard
-```
 
 ---
 
@@ -142,7 +165,14 @@ Instrukcje instalacji PX4 SITL znajdziesz w oficjalnym repozytorium PX4:
 * Należy aby wskazać ścieżki do PX4 w launch file ROS.
 
 
-Launch:
-ros2 launch drone_sim drone_sim_launch.launch.py 
-ros2 run gazebo_ros spawn_entity.py   -file /home/mateusz/Desktop/sem2_magisterka/drony/PX4/PX4-Autopilot/Tools/simulation/gazebo-classic/sitl_gazebo-classic/models/intruz/moving_image.sdf   -entity my_image
-ros2 run drone_sim offboard 
+
+## Uruchomienie symulacji:
+Po odpowiedniej konfiguracji całej paczki wraz z PX:
+
+```bash
+ros2 launch drone_sim drone_sim_launch.launch.py
+ros2 run gazebo_ros spawn_entity.py \
+  -file <ścieżka>/intruz/moving_image.sdf \
+  -entity my_image
+ros2 run drone_sim offboard
+```
